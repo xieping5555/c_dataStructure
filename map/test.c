@@ -1,75 +1,75 @@
-/************************* 
-*** File main.c 
-*** test for MyHashMap 
-**************************/  
+/*************************
+*** File main.c
+*** test for MyHashMap
+**************************/
 #include <stdio.h>  
 #include <stdlib.h>  
 #include "myEqual.h"  
 #include "myHashCode.h"  
 #include "myHashMap.h"  
-  
+
 #define S 10  
-  
-char* strs[S]=  
-{  
-    "abc",  
-    "qq",  
-    "hello",  
-    "abc",  
-    "lmy",  
-    "ab",  
-    "qq",  
-    "lqw",  
-    "sww",  
-    "lqw"  
-};  
-  
-  
-int main()  
-{  
-  
-    int*  data = malloc(sizeof(int)* S);  
-    for (int i=0; i<S; i++)  
-    {  
-        data[i]=i;  
-    }  
-  
-    //åˆ›å»ºæ˜ å°„éœ€è¦æŒ‡å®šä¸¤ä¸ªå‡½æ•°ï¼ŒhashCodeå‡½æ•°å’Œequalå‡½æ•°ã€‚  
-    MyHashMap * map = createMyHashMap(myHashCodeString, myEqualString);  
-  
-    //æ’å…¥æ•°æ®  
-    for (int i=0; i<S; i++)  
-    {  
-        myHashMapPutData(map, strs[i], &data[i]);  
-    }  
-  
-    //è¾“å‡ºå¤§å°  
-    printf("size=%d\n",myHashMapGetSize(map));  
-  
-    //æµ‹è¯•åˆ é™¤  
-    myHashMapRemoveDataByKey(map,"qq");  
-    myHashMapRemoveDataByKey(map,"ab");  
-    myHashMapRemoveDataByKey(map,"qwert");  
-  
-    //è¾“å‡ºå¤§å°  
-    printf("after remove size=%d\n",myHashMapGetSize(map));  
-  
-    //éå†  
-    MyHashMapEntryIterator * it = createMyHashMapEntryIterator(map);  
-    while(myHashMapEntryIteratorHasNext(it))  
-    {  
-        Entry * pp= myHashMapEntryIteratorNext(it);  
-        char * key = pp-> key;  
-        int * value = pp->value;  
-        printf("%s(%d)\n", key, *value);  
-    }  
-    //é‡Šæ”¾éå†å™¨  
-    freeMyHashMapEntryIterator(it);  
-  
-    //é‡Šæ”¾æ˜ å°„  
-    freeMyHashMap(map);  
-  
-    //é‡Šæ”¾æ•°æ®  
-    free(data);  
-    return 0;  
-}  
+
+char* strs[S] =
+{
+	"abc",
+	"qq",
+	"hello",
+	"abc",
+	"lmy",
+	"ab",
+	"qq",
+	"lqw",
+	"sww",
+	"lqw"
+};
+
+
+int main()
+{
+
+	int* data = malloc(sizeof(int) * S);
+	for (int i = 0; i < S; i++)
+	{
+		data[i] = i;
+	}
+
+	//´´½¨Ó³ÉäĞèÒªÖ¸¶¨Á½¸öº¯Êı£¬hashCodeº¯ÊıºÍequalº¯Êı¡£  
+	MyHashMap* map = createMyHashMap(myHashCodeString, myEqualString);
+
+	//²åÈëÊı¾İ  
+	for (int i = 0; i < S; i++)
+	{
+		myHashMapPutData(map, strs[i], &data[i]);
+	}
+
+	//Êä³ö´óĞ¡  
+	printf("size=%d\n", myHashMapGetSize(map));
+
+	//²âÊÔÉ¾³ı  
+	myHashMapRemoveDataByKey(map, "qq");
+	myHashMapRemoveDataByKey(map, "ab");
+	myHashMapRemoveDataByKey(map, "qwert");
+
+	//Êä³ö´óĞ¡  
+	printf("after remove size=%d\n", myHashMapGetSize(map));
+
+	//±éÀú  
+	MyHashMapEntryIterator* it = createMyHashMapEntryIterator(map);
+	while (myHashMapEntryIteratorHasNext(it))
+	{
+		Entry* pp = myHashMapEntryIteratorNext(it);
+		char* key = pp->key;
+		int* value = pp->value;
+		printf("%s(%d)\n", key, *value);
+	}
+	//ÊÍ·Å±éÀúÆ÷  
+	freeMyHashMapEntryIterator(it);
+
+	//ÊÍ·ÅÓ³Éä  
+	freeMyHashMap(map);
+
+	//ÊÍ·ÅÊı¾İ  
+	free(data);
+	return 0;
+}

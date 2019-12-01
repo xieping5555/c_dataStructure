@@ -1,71 +1,68 @@
-#ifndef MYHASHMAP_H_INCLUDED  
-#define MYHASHMAP_H_INCLUDED  
-#include "myList.h"  
-  
-#define DEFAULT_INITIAL_CAPACITY 16  
-#define DEFAULT_LOAD_FACTOR 0.75f  
-  
-typedef struct entry  
-{  
-    void * key;  
-    void * value;  
-} Entry;  
-  
-typedef struct myHashMap  
-{  
-    int size;   //å¤§å°  
-    int initialCapacity; //åˆå§‹å®¹é‡  
-    float loadFactor;   //åŠ è½½å› å­  
-    int (*hashCode)(void *key);  
-    int (*equal)(void *key1,void *key2);  
-    MyList ** entryList;  
-} MyHashMap;  
-  
-typedef struct myHashMapEntryIterator  
-{  
-    int index;       //ç¬¬å‡ ä¸ªé“¾è¡¨  
-    MyHashMap *map;  
-    MyNode *current;  
-    int count;        //ç¬¬å‡ ä¸ªæ•°æ®  
-} MyHashMapEntryIterator;  
-  
-//åˆ›å»ºHashMap  
-MyHashMap *createMyHashMap(int (*hashCode)(void *key),int (*equal)(void *key1,void *key2));  
-  
-//ä½¿ç”¨å…¨éƒ¨å‚æ•°åˆ›å»ºHashMap  
-MyHashMap *createMyHashMapForAll(int initialCapacity,float loadFactor,int (*hashCode)(void *key),int (*equal)(void *key1,void *key2));  
-  
-//é‡Šæ”¾HashMap  
-void freeMyHashMap(MyHashMap * map);  
-  
-//æ˜¯å¦åŒ…å«æŸä¸ªkey  
-int myHashMapContainsKey(MyHashMap *const map,void * const key);  
-  
-//å¢åŠ ä¸€æ¡æ˜ å°„  
-void myHashMapPutData(MyHashMap *const map,void * const key,void * const value);  
-  
-//é€šè¿‡keyå¾—åˆ°æ•°æ®ï¼Œå¦‚æœæ²¡æœ‰æ•°æ®åˆ™è¿”å›null  
-void* myHashMapGetDataByKey(MyHashMap * const map,void *const key);  
-  
-//æ•°æ®çš„å®¹é‡  
-int myHashMapGetSize(const MyHashMap * const map);  
-  
-//åˆ›å»ºEntryè¿­ä»£å™¨  
-MyHashMapEntryIterator* createMyHashMapEntryIterator( MyHashMap *const map);  
-  
-//é‡Šæ”¾Entryè¿­ä»£å™¨  
-void freeMyHashMapEntryIterator(MyHashMapEntryIterator* iterator);  
-  
-//Entryè¿­ä»£å™¨æ˜¯å¦æœ‰ä¸‹ä¸€ä¸ª  
-int myHashMapEntryIteratorHasNext(MyHashMapEntryIterator* iterator);  
-  
-//éå†ä¸‹ä¸€ä¸ªEntryå…ƒç´   
-Entry* myHashMapEntryIteratorNext(MyHashMapEntryIterator* iterator);  
-  
-//åˆ é™¤ä¸€æ¡æ•°æ®ï¼Œè¿”å›æ˜¯å¦åˆ é™¤æˆåŠŸ  
-int myHashMapRemoveDataByKey(MyHashMap *const map,void * const key);  
-  
-//éå†  
-void myHashMapOutput(MyHashMap *map, void(*pt)(Entry*));  
-  
-#endif // MYHASHMAP_H_INCLUDED 
+#ifndef MYHASHMAP_H_INCLUDED
+#define MYHASHMAP_H_INCLUDED
+#include "myList.h"
+
+#define DEFAULT_INITIAL_CAPACITY 16
+#define DEFAULT_LOAD_FACTOR 0.75f
+
+typedef struct entry {
+	void* key;
+	void* value;
+} Entry;
+
+typedef struct myHashMap {
+	int size;
+	int initialCapacity;
+	float loadFactor;
+	int (*hashCode)(void* key);
+	int (*equal)(void* key1, void* key2);
+	MyList** entryList;
+} MyHashMap;
+
+typedef struct myHashMapEntryIterator {
+	int index;
+	MyHashMap* map;
+	MyNode* current;
+	int count;
+} MyHashMapEntryIterator;
+
+// ´´½¨HashMap
+MyHashMap* createMyHashMap(int (*hashCode)(void* key), int (*Equal)(void* key1, void* key2));
+
+// Ê¹ÓÃÈ«²¿²ÎÊı´´½¨HashMap
+MyHashMap* createMyHashMapForAll(int initialCapacity, float loadFactor, int (*hashCode)(void* key), int (*Equal)(void* key1, void* key2));
+
+// ÊÍ·ÅHashMap
+void freeMyHashMap(MyHashMap* map);
+
+// ÊÇ·ñ°üº¬Ä³¸ökey
+void myHashMapContainsKey(MyHashMap* const map, void* const key);
+
+// Ôö¼ÓÒ»ÌõÓ³Éä
+void myHashMapPutData(MyHashMap* const map, void* const key);
+
+// Í¨¹ıkeyµÃµ½Êı¾İ£¬Èç¹ûÃ»ÓĞÊı¾İÔò·µ»Ønull
+void* myHashMapGetDataByKey(MyHashMap* const map, void* const key);
+
+// Êı¾İµÄÈİÁ¿
+int MyHashMapGetSize(const MyHashMap* const map);
+
+//´´½¨Entryµü´úÆ÷  
+MyHashMapEntryIterator* createMyHashMapEntryIterator(MyHashMap* const map);
+
+//ÊÍ·ÅEntryµü´úÆ÷  
+void freeMyHashMapEntryIterator(MyHashMapEntryIterator* iterator);
+
+//Entryµü´úÆ÷ÊÇ·ñÓĞÏÂÒ»¸ö  
+int myHashMapEntryIteratorHasNext(MyHashMapEntryIterator* iterator);
+
+//±éÀúÏÂÒ»¸öEntryÔªËØ  
+Entry* myHashMapEntryIteratorNext(MyHashMapEntryIterator* iterator);
+
+//É¾³ıÒ»ÌõÊı¾İ£¬·µ»ØÊÇ·ñÉ¾³ı³É¹¦  
+int myHashMapRemoveDataByKey(MyHashMap* const map, void* const key);
+
+//±éÀú  
+void myHashMapOutput(MyHashMap* map, void(*pt)(Entry*));
+
+#endif
